@@ -289,11 +289,8 @@ function toStringList(arr) {
  *   distinct([ 1, 1, 2, 2, 3, 3, 4, 4]) => [ 1, 2, 3, 4]
  *   distinct([]) => []
  */
-function distinct(arr) {
-arr.filter((element, index) => {
-    arr.indexOf(element) === index;
-  });
-  return arr;
+function distinct(/*arr*/) {
+
 }
 
 /**
