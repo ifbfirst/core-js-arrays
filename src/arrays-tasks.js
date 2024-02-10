@@ -286,7 +286,10 @@ function toStringList(arr) {
  *   distinct([ 1, 1, 2, 2, 3, 3, 4, 4]) => [ 1, 2, 3, 4]
  *   distinct([]) => []
  */
-function distinct(/* arr */) {}
+function distinct(arr) {
+  const newArr = arr.filter((element, index) => arr.indexOf(element) === index);
+  return newArr;
+}
 
 /**
  * Creates an n-dimensional array and fills it with zeros.
