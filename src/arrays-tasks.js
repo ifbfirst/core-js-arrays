@@ -489,8 +489,45 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  let ost;
+  let str = '';
+  const newArr = arr.map(function f(element) {
+    str = '';
+    let newElement = element;
+    while (newElement >= 0) {
+      ost = newElement % 16;
+      newElement = Math.trunc(newElement / 16);
+
+      if (ost === 10) {
+        ost = 'A';
+      } else if (ost === 11) {
+        ost = 'B';
+      } else if (ost === 12) {
+        ost = 'C';
+      } else if (ost === 13) {
+        ost = 'D';
+      } else if (ost === 14) {
+        ost = 'E';
+      } else if (ost === 15) {
+        ost = 'F';
+      } else if (ost === 0) {
+        break;
+      }
+
+      str = `${str}${ost}`;
+    }
+    if (str.length < 6) {
+      const zero = 0;
+      const len = 6 - str.length;
+      for (let i = 0; i < len; i += 1) {
+        str = `${zero}${str}`;
+      }
+    }
+    str = `#${str}`;
+    return str;
+  });
+  return newArr;
 }
 
 /**
