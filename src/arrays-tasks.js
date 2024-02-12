@@ -287,8 +287,8 @@ function toStringList(arr) {
  *   distinct([]) => []
  */
 function distinct(arr) {
-  const newArr = arr.filter((element, index) => arr.indexOf(element) === index);
-  return newArr;
+  const newArr = new Set(arr);
+  return Array.from(newArr);
 }
 
 /**
@@ -304,8 +304,11 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  /* Array(size).fill(Array(size).fill(0)); */
+function createNDimensionalArray(n, size) {
+  if (n === 1) {
+    return new Array(size).fill(0);
+  }
+  return new Array(size).fill(createNDimensionalArray(n - 1, size));
 }
 
 /**
@@ -320,8 +323,7 @@ function createNDimensionalArray(/* n, size */) {
  *    flattenArray([1, 2, 3, 4]) => [1, 2, 3, 4]
  */
 function flattenArray(nestedArray) {
-  const newArr = nestedArray.flat();
-  return newArr;
+  return nestedArray.flat(Infinity);
 }
 
 /**
@@ -356,14 +358,17 @@ function selectMany(arr, childrenSelector) {
  */
 function calculateBalance(arr) {
   const newArr2 = [];
-
-  arr.forEach((element) => {
+  let res;
+  arr.map(function f(element) {
     newArr2.push(element[0] - element[1]);
+    return newArr2;
   });
 
   newArr2.reduce(function b(accumulator, currentValue) {
-    return accumulator + currentValue;
+    res = accumulator + currentValue;
+    return res;
   });
+  return res;
 }
 
 /**
@@ -378,8 +383,15 @@ function calculateBalance(arr) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  return arr.reduce((accumulator, element, index) => {
+    if (index % chunkSize === 0) {
+      accumulator.push([element]);
+    } else {
+      accumulator[accumulator.length - 1].push(element);
+    }
+    return accumulator;
+  }, []);
 }
 
 /**
